@@ -32,6 +32,28 @@ img {
     $(document).ready(function(){
        show();
 
+       $('[data-quantity="plus"]').click(function(e){
+        e.preventDefault();
+        fieldName = $(this).attr('data-field');
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        if (!isNaN(currentVal)) {
+            $('input[name='+fieldName+']').val(currentVal + 1);
+        } else {
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+    $('[data-quantity="minus"]').click(function(e) {
+        e.preventDefault();
+        fieldName = $(this).attr('data-field');
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        if (!isNaN(currentVal) && currentVal > 0) {
+            $('input[name='+fieldName+']').val(currentVal - 1);
+        } else {
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+
+      
 
         function show(){
             var data={"action":"show"};
@@ -108,11 +130,13 @@ img {
              <div class="product-bottom">
                  <img src="img/BCA95717-CC99-4E2B-970A-E84F5AFE6FC3.jpg" >
                  <div class="overlay-right">
-                     <button type="button" title="addition"><i class="fa fa-minus"></i></button>
-                     <input type="text" name="txtadd" id="txtadd" style="width:45px"/>
-                     <button type="button" title="addition"><i class="fa fa-plus"></i>
+                     <button type="button" title="minus" data-quantity="minus" data-field="quantity"><i class="fa fa-minus"></i></button>
+                     <input type="text" name="quantity" id="txtadd" style="width:45px" value='1'/>
+                     <button type="button" title="addition" data-quantity="plus" data-field="quantity"><i class="fa fa-plus"></i>
                     </button>
                     <span style='font-weight: bold;color:white'>PKR 200</span>
+                    <button type="button" title="add"><i class="fa fa-plus-circle"></i>
+                    </button>
 
 
                  </div>
@@ -126,10 +150,12 @@ img {
                  <img src="img/D498163D-8091-469E-99B1-696E0DB8B2F2.jpg" >
                  <div class="overlay-right">
                      <button type="button" title="addition"><i class="fa fa-minus"></i></button>
-                     <input type="text" name="txtadd" id="txtadd" style="width:45px"/>
+                     <input type="text" name="txtadd" id="txtadd" style="width:45px" value='1'/>
                      <button type="button" title="addition"><i class="fa fa-plus"></i>
                     </button>
                     <span style='font-weight: bold;color:white'>PKR 500</span>
+                    <button type="button" title="add"><i class="fa fa-plus-circle"></i>
+                    </button>
 
 
                  </div>
@@ -143,10 +169,12 @@ img {
                  <img src="img/E0C910A2-E55F-480A-AE81-0DE2A0093CA6.jpg" >
                  <div class="overlay-right">
                      <button type="button" title="addition"><i class="fa fa-minus"></i></button>
-                     <input type="text" name="txtadd" id="txtadd" style="width:45px"/>
+                     <input type="text" name="txtadd" id="txtadd" style="width:45px" value='1'/>
                      <button type="button" title="addition"><i class="fa fa-plus"></i>
                     </button>
                     <span style='font-weight: bold;color:white'>PKR 700</span>
+                    <button type="button" title="add"><i class="fa fa-plus-circle"></i>
+                    </button>
 
 
                  </div>
@@ -160,10 +188,12 @@ img {
                  <img src="img/E4E2C76C-9D4F-4993-BB25-D1DE35FC26C2.jpg" >
                  <div class="overlay-right">
                      <button type="button" title="addition"><i class="fa fa-minus"></i></button>
-                     <input type="text" name="txtadd" id="txtadd" style="width:45px"/>
+                     <input type="text" name="txtadd" id="txtadd" style="width:45px" value='1'/>
                      <button type="button" title="addition"><i class="fa fa-plus"></i>
                     </button>
                     <span style='font-weight: bold;color:white'>PKR 300</span>
+                    <button type="button" title="add"><i class="fa fa-plus-circle"></i>
+                    </button>
 
 
                  </div>
