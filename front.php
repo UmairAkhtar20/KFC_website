@@ -21,9 +21,13 @@
 float:left;
 margin: 75px;
 }
+.overlay-right
+{
+    background-color: red;
+}
 img {
   width: 100%;
-  height: 100%;
+  
 }
 
 
@@ -31,30 +35,7 @@ img {
 <script>
     $(document).ready(function(){
        show();
-
-       $('[data-quantity="plus"]').click(function(e){
-        e.preventDefault();
-        fieldName = $(this).attr('data-field');
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        if (!isNaN(currentVal)) {
-            $('input[name='+fieldName+']').val(currentVal + 1);
-        } else {
-            $('input[name='+fieldName+']').val(0);
-        }
-    });
-    $('[data-quantity="minus"]').click(function(e) {
-        e.preventDefault();
-        fieldName = $(this).attr('data-field');
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        if (!isNaN(currentVal) && currentVal > 0) {
-            $('input[name='+fieldName+']').val(currentVal - 1);
-        } else {
-            $('input[name='+fieldName+']').val(0);
-        }
-    });
-
-      
-
+       
         function show(){
             var data={"action":"show"};
 
@@ -67,20 +48,46 @@ img {
                 success:function(response){
                     for (var i=0;i<response.data.length;i++){
                         var data=response.data[i];
-                        var div=$("<div class='box'>");
-                        div.append("<span class='text-center'>");
-                        div.append("<a href='#' class='text-center'>"+data.productname+"</a>");
-                        div.append("</a>");
-                        div.append("</span>");
-                        div.append("<img src='img/"+data.picture+"'/>");
-                        div.append("<button type='submit' id='btnbutton' value=''/> ");
+                        var div=$("<div class='col-md-3'>");
+                        div.append("<div class='product-top text-center'");
+                        div.append("<h3>"+data.productname+"</h3>");
                         div.append("</div>");
-                        $("#show").append(div);
-
+                        div.append("<div class='product-bottom'");
+                        div.append("<img src='img/"+data.picture+"' >");
+                       var $overlaydiv = $("<div class='overlay-right'>");
+                       div.append($overlaydiv);
+                       $overlaydiv.append("<button type='button'  class='minus' ><i class='fa fa-minus'></i></button>");
+                       $overlaydiv.append("<input type='text' class='val'  id='txtadd' style='width:45px' value='1'/>");
+                       $overlaydiv.append("<button type='button'  class='plus' ><i class='fa fa-plus'></i></button>");
+                        $overlaydiv.append("<span style='font-weight:bold;color:white'>'PKR'"+data.Price+"</span>");
+                        $overlaydiv.append("<button type='button' title='add'><i class='fa fa-plus-circle'></i></button>");
                         
-                        
+                        $(".row").append(div);
+               
                         
                     }
+                    $('.plus').on('click',function(){
+                            
+                        var v=$(this).closest(".overlay-right").find("input").val();
+                     var currentVal = parseInt(v);
+                     if (!isNaN(currentVal)) {
+                        $(this).closest(".overlay-right").find("input").val(currentVal + 1);
+                     } else {
+                        $(this).closest(".overlay-right").find("input").val(0);
+                         }
+                            });
+
+                    $(".minus").on('click',function(){
+                        var v=$(this).closest(".row").find("input").val();
+                     var currentVal = parseInt(v);
+                     if (!isNaN(currentVal)) {
+                        $(this).closest(".overlay-right").find("input").val(currentVal - 1);
+                     } else {
+                        $(this).closest(".overlay-right").find("input").val(0);
+                         }
+                            });
+                        
+                    
 
                 },
                 error:function(r){
@@ -123,82 +130,7 @@ img {
          <h2>MAKE IT YOUR MEAL</h2>
      </div>
      <div class="row">
-         <div class="col-md-3">
-             <div class="product-top text-center">
-                 <h3>twister</h3>
-             </div>
-             <div class="product-bottom">
-                 <img src="img/BCA95717-CC99-4E2B-970A-E84F5AFE6FC3.jpg" >
-                 <div class="overlay-right">
-                     <button type="button" title="minus" data-quantity="minus" data-field="quantity"><i class="fa fa-minus"></i></button>
-                     <input type="text" name="quantity" id="txtadd" style="width:45px" value='1'/>
-                     <button type="button" title="addition" data-quantity="plus" data-field="quantity"><i class="fa fa-plus"></i>
-                    </button>
-                    <span style='font-weight: bold;color:white'>PKR 200</span>
-                    <button type="button" title="add"><i class="fa fa-plus-circle"></i>
-                    </button>
-
-
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-3">
-             <div class="product-top text-center">
-                 <h3>Might ZINGER</h3>
-             </div>
-             <div class="product-bottom">
-                 <img src="img/D498163D-8091-469E-99B1-696E0DB8B2F2.jpg" >
-                 <div class="overlay-right">
-                     <button type="button" title="addition"><i class="fa fa-minus"></i></button>
-                     <input type="text" name="txtadd" id="txtadd" style="width:45px" value='1'/>
-                     <button type="button" title="addition"><i class="fa fa-plus"></i>
-                    </button>
-                    <span style='font-weight: bold;color:white'>PKR 500</span>
-                    <button type="button" title="add"><i class="fa fa-plus-circle"></i>
-                    </button>
-
-
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-3">
-             <div class="product-top text-center">
-                 <h3>Zinger Stacker</h3>
-             </div>
-             <div class="product-bottom">
-                 <img src="img/E0C910A2-E55F-480A-AE81-0DE2A0093CA6.jpg" >
-                 <div class="overlay-right">
-                     <button type="button" title="addition"><i class="fa fa-minus"></i></button>
-                     <input type="text" name="txtadd" id="txtadd" style="width:45px" value='1'/>
-                     <button type="button" title="addition"><i class="fa fa-plus"></i>
-                    </button>
-                    <span style='font-weight: bold;color:white'>PKR 700</span>
-                    <button type="button" title="add"><i class="fa fa-plus-circle"></i>
-                    </button>
-
-
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-3">
-             <div class="product-top text-center">
-                 <h3>Zinger</h3>
-             </div>
-             <div class="product-bottom">
-                 <img src="img/E4E2C76C-9D4F-4993-BB25-D1DE35FC26C2.jpg" >
-                 <div class="overlay-right">
-                     <button type="button" title="addition"><i class="fa fa-minus"></i></button>
-                     <input type="text" name="txtadd" id="txtadd" style="width:45px" value='1'/>
-                     <button type="button" title="addition"><i class="fa fa-plus"></i>
-                    </button>
-                    <span style='font-weight: bold;color:white'>PKR 300</span>
-                    <button type="button" title="add"><i class="fa fa-plus-circle"></i>
-                    </button>
-
-
-                 </div>
-             </div>
-         </div>
+         
      </div>   
     </div>
     </section>
