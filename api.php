@@ -4,27 +4,26 @@
 
 if(isset($_REQUEST['action'])){
     $action=$_REQUEST['action'];
-    if($action=="save"){
-        if(isset($_FILES['file'])){
-            $fname=$_REQUEST['fname'];
-            $price=$_REQUEST['price'];
-            echo "$price";
-            $file=$_FILES['file'];
-            $src_path=$file['tmp_name'];
-            $name=$file['name'];
-            $picurl=SaveFile($src_path,$name);
-            $sql="INSERT INTO  products(productname,picture,Price) VALUES('$fname','$picurl','$price')";
-            if(mysqli_query($conn,$sql)===TRUE){
-                $msg="pic uploaded";
+    if($action=="show"){
+
+            $sql="SELECT * FROM products ";
+            $result=mysqli_query($conn,$sql);
+            $resultfound=mysqli_num_rows($result);
+            $data=array();
+            if($resultfound>0){
+                while($row=mysqli_fetch_assoc($result)){
+                    $data[]=$row;
+                }
             }
-            else{
-                $msg="Error:".mysqli_error($conn);
-            }
-            echo json_encode($msg);
+            $output['data']=$data;
+            echo json_encode($output);
+
+            
+            
 
 
 
-        }
+        
     }
 }
 
