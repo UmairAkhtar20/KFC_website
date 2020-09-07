@@ -33,7 +33,12 @@ img {
 
 </style>
 <script>
+       var p=0;
+       var quantity=0;
+       var oldp=0;
+       var newp=0;
     $(document).ready(function(){
+       
        show();
        
         function show(){
@@ -48,6 +53,7 @@ img {
                 success:function(response){
                     for (var i=0;i<response.data.length;i++){
                         var data=response.data[i];
+                        
                         var div=$("<div class='col-md-3'>");
                         div.append("<div class='product-top text-center'");
                         div.append("<h3>"+data.productname+"</h3>");
@@ -59,8 +65,8 @@ img {
                        $overlaydiv.append("<button type='button'  class='minus' ><i class='fa fa-minus'></i></button>");
                        $overlaydiv.append("<input type='text' class='val'  id='txtadd' style='width:45px' value='1'/>");
                        $overlaydiv.append("<button type='button'  class='plus' ><i class='fa fa-plus'></i></button>");
-                        $overlaydiv.append("<span style='font-weight:bold;color:white'>'PKR'"+data.Price+"</span>");
-                        $overlaydiv.append("<button type='button' title='add'><i class='fa fa-plus-circle'></i></button>");
+                        $overlaydiv.append("<span class='price' style='font-weight:bold;color:white' pid='"+data.Price+"'>'PKR'"+data.Price+"</span>");
+                        $overlaydiv.append("<button type='button'  class='add'><i class='fa fa-plus-circle'></i></button>");
                         
                         $(".row").append(div);
                
@@ -71,7 +77,9 @@ img {
                         var v=$(this).closest(".overlay-right").find("input").val();
                      var currentVal = parseInt(v);
                      if (!isNaN(currentVal)) {
-                        $(this).closest(".overlay-right").find("input").val(currentVal + 1);
+                     
+                          quantity=$(this).closest(".overlay-right").find("input").val(currentVal + 1);
+
                      } else {
                         $(this).closest(".overlay-right").find("input").val(0);
                          }
@@ -86,6 +94,26 @@ img {
                         $(this).closest(".overlay-right").find("input").val(0);
                          }
                             });
+
+                    $(".add").on('click',function(){
+                        debugger;
+                        p=$(this).closest(".overlay-right").find(".price").attr("pid");
+                       // p=$(".price").attr("pid");
+                        quantity=$(this).closest(".overlay-right").find("input").val();
+                        alert(p);
+                        alert(quantity);
+                        var totalp=p*quantity;
+                        
+                         newp=totalp+oldp;
+                        var a=$("<a href='#'>"+newp+"</a>");
+                         oldp=newp;
+                        $(".span").append(a);
+
+
+
+
+
+                    });
                         
                     
 
@@ -118,8 +146,8 @@ img {
     <div class="top-nav-bar">
     <div class="menu-bar">
     <ul>
-    <li><a href="#" id='cart'><i class="fa fa-shopping-basket"></i>cart</a></li>
-    <li><a href="#">Total Price</a></li>
+    <li><a href="order.php" id='cart'><i class="fa fa-shopping-basket"></i>cart</a></li>
+    <li class='li'><a href='#'>Total Price : <span class='span'></span></a></li>
     </ul>    
     
     </div>   
