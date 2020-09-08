@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="script.js"></script>
 <style>
 .box{
     padding:50px;
@@ -37,99 +39,12 @@ img {
        var quantity=0;
        var oldp=0;
        var newp=0;
+       var pid=0;
     $(document).ready(function(){
        
-       show();
+        showAllproducts();
        
-        function show(){
-            var data={"action":"show"};
-
-         
-            var settings={
-                Type:'post',
-                url:"api.php",
-                dataType:"json",
-                data:data,
-                success:function(response){
-                    for (var i=0;i<response.data.length;i++){
-                        var data=response.data[i];
-                        
-                        var div=$("<div class='col-md-3'>");
-                        div.append("<div class='product-top text-center'");
-                        div.append("<h3>"+data.productname+"</h3>");
-                        div.append("</div>");
-                        div.append("<div class='product-bottom'");
-                        div.append("<img src='img/"+data.picture+"' >");
-                       var $overlaydiv = $("<div class='overlay-right'>");
-                       div.append($overlaydiv);
-                       $overlaydiv.append("<button type='button'  class='minus' ><i class='fa fa-minus'></i></button>");
-                       $overlaydiv.append("<input type='text' class='val'  id='txtadd' style='width:45px' value='1'/>");
-                       $overlaydiv.append("<button type='button'  class='plus' ><i class='fa fa-plus'></i></button>");
-                        $overlaydiv.append("<span class='price' style='font-weight:bold;color:white' pid='"+data.Price+"'>'PKR'"+data.Price+"</span>");
-                        $overlaydiv.append("<button type='button'  class='add'><i class='fa fa-plus-circle'></i></button>");
-                        
-                        $(".row").append(div);
-               
-                        
-                    }
-                    $('.plus').on('click',function(){
-                            
-                        var v=$(this).closest(".overlay-right").find("input").val();
-                     var currentVal = parseInt(v);
-                     if (!isNaN(currentVal)) {
-                     
-                          quantity=$(this).closest(".overlay-right").find("input").val(currentVal + 1);
-
-                     } else {
-                        $(this).closest(".overlay-right").find("input").val(0);
-                         }
-                            });
-
-                    $(".minus").on('click',function(){
-                        var v=$(this).closest(".row").find("input").val();
-                     var currentVal = parseInt(v);
-                     if (!isNaN(currentVal)) {
-                        $(this).closest(".overlay-right").find("input").val(currentVal - 1);
-                     } else {
-                        $(this).closest(".overlay-right").find("input").val(0);
-                         }
-                            });
-
-                    $(".add").on('click',function(){
-                        debugger;
-                        p=$(this).closest(".overlay-right").find(".price").attr("pid");
-                       // p=$(".price").attr("pid");
-                        quantity=$(this).closest(".overlay-right").find("input").val();
-                        alert(p);
-                        alert(quantity);
-                        var totalp=p*quantity;
-                        
-                         newp=totalp+oldp;
-                        var a=$("<a href='#'>"+newp+"</a>");
-                         oldp=newp;
-                        $(".span").append(a);
-
-
-
-
-
-                    });
-                        
-                    
-
-                },
-                error:function(r){
-                    alert("error");
-                }
-            };
-            $.ajax(settings);
-        }  
-
-
-
-
-
-
+        
 
     });
 

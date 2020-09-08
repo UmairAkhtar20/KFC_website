@@ -25,7 +25,30 @@ if(isset($_REQUEST['action'])){
 
         
     }
+if($action=="cart"){
+   // $pid=$_REQUEST['pid'];
+    $sql="SELECT * FROM products ";
+    $result=mysqli_query($conn,$sql);
+    $resultfound=mysqli_num_rows($result);
+    $data=array();
+    if($resultfound>0){
+                while($row=mysqli_fetch_assoc($result)){
+                    $data[]=$row;
+                }
+            }
+    $output['data']=$data;
+    echo json_encode($output);
+
 }
+
+
+
+
+
+
+
+}
+
 
 
 

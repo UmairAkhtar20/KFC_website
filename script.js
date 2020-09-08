@@ -1,0 +1,186 @@
+function showOrderproducts(){
+    //  var pid=$_SESSION['pid'];
+      var data={'action':'cart'};
+      var settings={
+          Type:"post",
+          url:"api.php",
+          dataType:"json",
+          data:data,
+          success:function(response){
+              for (var i=0;i<response.data.length;i++){
+                  var data=response.data[i];
+                  //var tbl=$("<table>");
+               //   tbl.append("<tbody>");
+               //   tbl.append("<tr>");
+               //   tbl.append("<th style='text-align:left;'>Name</th>");
+               //   tbl.append("<th style='text-align:left; width=5%'>Quantity</th>");
+               //   tbl.append("<th style='text-align:left; width=10%'>price</th>");
+               //   tbl.append("</tr>");
+                 var tbl=$("<tr class='tr'>");
+                  tbl.append("<td> <img src='img/"+data.picture+"' style='height:25%;width:25%;'> <span>"+data.productname+" </span> </td>");
+                  tbl.append("<td> <button type='button'  class='minus' ><i class='fa fa-minus'></i></button> </td>");
+                  tbl.append("<td> <input type='text' class='val'  id='txtadd' style='width:45px;' value='1'/> </td>");
+                  tbl.append("<td> <button type='button'  class='plus' ><i class='fa fa-plus'></i></button> </td>");
+                  tbl.append("<td> <span class='price' style='font-weight:bold;color:black' pp='"+data.Price+"'>"+data.Price+"</span> </td>");
+                 // tbl.append(btn);
+                  tbl.append("</tr>");
+           //       tbl.append("<tr>");
+           //       tbl.append("<td colspan='2' align='right'> Total: </td> ");
+           //       tbl.append("</tr>");
+               //   tbl.append("</tbody>");
+               //   tbl.append("</table>");
+                  $(".tbl1").append(tbl);
+                  }
+                  
+
+                  $('.plus').on('click',function(){
+                  
+                  var v=$(this).closest(".tr").find("input").val();
+               var currentVal = parseInt(v);
+               if (!isNaN(currentVal)) {
+           //    debugger;
+                  $(this).closest(".tr").find("input").val(currentVal + 1);
+                  quantity=$(this).closest(".tr").find("input").val();
+                  p=$(this).closest(".tr").find(".price").attr("pp");
+                  var totalp=p*quantity;
+                  newp=totalp+oldp;
+                  
+                 var a=$("<td>"+totalp+"</td>");
+                   oldp=newp;
+                   $(".price").empty();
+                   $(this).closest(".tr").find(".price").append(a);
+                   
+                  
+                   
+                //   $(".price").append(a);
+
+
+               } else {
+                  $(this).closest(".tr").find("input").val(0);
+                   }
+                      });
+
+              $(".minus").on('click',function(){
+                  var v=$(this).closest(".tr").find("input").val();
+               var currentVal = parseInt(v);
+               if (!isNaN(currentVal)) {
+                  $(this).closest(".tr").find("input").val(currentVal - 1);
+                  quantity=$(this).closest(".tr").find("input").val();
+                  p=$(this).closest(".tr").find(".price").attr("pp");
+                  var totalp=p*quantity;
+               debugger;
+                  newp=totalp-oldp;
+                  var a=$("<td>"+totalp+"</td>");
+                   oldp=newp;
+                   $(".price").empty();
+                   $(this).closest(".tr").find(".price").append(a);
+                 //  $(".price").append(a);
+               } else {
+                  $(this).closest(".tr").find("input").val(0);
+                   }
+                      });
+                  var tot=$("<tr class='t1'>");
+                  tot.append("<td  class='td1' colspan='2' align='right'> Total: </td> ");
+                  tot.append("</tr>");
+                  $(".tbl1").append(tot);
+
+
+
+          },
+          error:function(){
+              alert("arror");
+          }
+
+      };
+      $.ajax(settings);
+
+  }
+
+  function showAllproducts(){
+    var data={"action":"show"};
+
+ 
+    var settings={
+        Type:'post',
+        url:"api.php",
+        dataType:"json",
+        data:data,
+        success:function(response){
+            for (var i=0;i<response.data.length;i++){
+                var data=response.data[i];
+                
+                var div=$("<div class='col-md-3'>");
+                div.append("<div class='product-top text-center'");
+                div.append("<h3>"+data.productname+"</h3>");
+                div.append("</div>");
+                div.append("<div class='product-bottom'");
+                div.append("<img pid='"+data.ID+"' src='img/"+data.picture+"' >");
+               var $overlaydiv = $("<div class='overlay-right'>");
+               div.append($overlaydiv);
+               $overlaydiv.append("<button type='button'  class='minus' ><i class='fa fa-minus'></i></button>");
+               $overlaydiv.append("<input type='text' class='val'  id='txtadd' style='width:45px' value='1'/>");
+               $overlaydiv.append("<button type='button'  class='plus' ><i class='fa fa-plus'></i></button>");
+                $overlaydiv.append("<span class='price' style='font-weight:bold;color:white' pp='"+data.Price+"'>'PKR'"+data.Price+"</span>");
+                $overlaydiv.append("<button type='button'  class='add'><i class='fa fa-plus-circle'></i></button>");
+                
+                $(".row").append(div);
+       
+                
+            }
+            $('.plus').on('click',function(){
+                    
+                var v=$(this).closest(".overlay-right").find("input").val();
+             var currentVal = parseInt(v);
+             if (!isNaN(currentVal)) {
+             
+                  quantity=$(this).closest(".overlay-right").find("input").val(currentVal + 1);
+
+             } else {
+                quantity=$(this).closest(".overlay-right").find("input").val(0);
+                 }
+                    });
+
+            $(".minus").on('click',function(){
+                var v=$(this).closest(".row").find("input").val();
+             var currentVal = parseInt(v);
+             if (!isNaN(currentVal)) {
+                $(this).closest(".overlay-right").find("input").val(currentVal - 1);
+             } else {
+                $(this).closest(".overlay-right").find("input").val(0);
+                 }
+                    });
+
+            $(".add").on('click',function(){
+                debugger;
+                p=$(this).closest(".overlay-right").find(".price").attr("pp");
+               // p=$(".price").attr("pid");
+                quantity=$(this).closest(".overlay-right").find("input").val();
+              //  pid=$(this).closest(".row").find("img").attr("pid");
+              
+
+               
+                var totalp=p*quantity;
+                
+                 newp=totalp+oldp;
+                var a=$("<a href='#'>"+newp+"</a>");
+                 oldp=newp;
+                 $(".span").empty();
+                $(".span").append(a);
+                $_SESSION['pid']=pid;
+             $_SESSION['quantity']=quantity;
+
+
+
+
+
+            });
+                
+            
+
+        },
+        error:function(r){
+            alert("error");
+        }
+    };
+    $.ajax(settings);
+}  
