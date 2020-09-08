@@ -16,73 +16,21 @@ function showOrderproducts(){
                //   tbl.append("<th style='text-align:left; width=5%'>Quantity</th>");
                //   tbl.append("<th style='text-align:left; width=10%'>price</th>");
                //   tbl.append("</tr>");
-                 var tbl=$("<tr class='tr'>");
-                  tbl.append("<td> <img src='img/"+data.picture+"' style='height:25%;width:25%;'> <span>"+data.productname+" </span> </td>");
-                  tbl.append("<td> <button type='button'  class='minus' ><i class='fa fa-minus'></i></button> </td>");
-                  tbl.append("<td> <input type='text' class='val'  id='txtadd' style='width:45px;' value='1'/> </td>");
-                  tbl.append("<td> <button type='button'  class='plus' ><i class='fa fa-plus'></i></button> </td>");
-                  tbl.append("<td> <span class='price' style='font-weight:bold;color:black' pp='"+data.Price+"'>"+data.Price+"</span> </td>");
+                 var tbl=$("<tr class='line_items'>");
+                  tbl.append("<td> <img src='img/"+data.picture+"' style='height:25%;width:25%;'></td>");
+                  tbl.append("<td> '"+data.productname+"'");
+                  tbl.append("<td> <input type='text' name='qty' value='1' class='form-control form-control-sm'/> </td>");
+                  tbl.append("<td> <input type='text' name='price' value='"+data.Price+"' class='form-control form-control-sm'/> </td>");
+                  tbl.append("<td> <input type='text' name='item_total' jAutoCalc='{qty} * {price}' class='form-control form-control-sm'/> </td>");
+
                  // tbl.append(btn);
                   tbl.append("</tr>");
-           //       tbl.append("<tr>");
-           //       tbl.append("<td colspan='2' align='right'> Total: </td> ");
-           //       tbl.append("</tr>");
-               //   tbl.append("</tbody>");
-               //   tbl.append("</table>");
-                  $(".tbl1").append(tbl);
+           //      
+                  $(".tr").append(tbl);
                   }
                   
 
-                  $('.plus').on('click',function(){
                   
-                  var v=$(this).closest(".tr").find("input").val();
-               var currentVal = parseInt(v);
-               if (!isNaN(currentVal)) {
-           //    debugger;
-                  $(this).closest(".tr").find("input").val(currentVal + 1);
-                  quantity=$(this).closest(".tr").find("input").val();
-                  p=$(this).closest(".tr").find(".price").attr("pp");
-                  var totalp=p*quantity;
-                  newp=totalp+oldp;
-                  
-                 var a=$("<td>"+totalp+"</td>");
-                   oldp=newp;
-                   $(".price").empty();
-                   $(this).closest(".tr").find(".price").append(a);
-                   
-                  
-                   
-                //   $(".price").append(a);
-
-
-               } else {
-                  $(this).closest(".tr").find("input").val(0);
-                   }
-                      });
-
-              $(".minus").on('click',function(){
-                  var v=$(this).closest(".tr").find("input").val();
-               var currentVal = parseInt(v);
-               if (!isNaN(currentVal)) {
-                  $(this).closest(".tr").find("input").val(currentVal - 1);
-                  quantity=$(this).closest(".tr").find("input").val();
-                  p=$(this).closest(".tr").find(".price").attr("pp");
-                  var totalp=p*quantity;
-               debugger;
-                  newp=totalp-oldp;
-                  var a=$("<td>"+totalp+"</td>");
-                   oldp=newp;
-                   $(".price").empty();
-                   $(this).closest(".tr").find(".price").append(a);
-                 //  $(".price").append(a);
-               } else {
-                  $(this).closest(".tr").find("input").val(0);
-                   }
-                      });
-                  var tot=$("<tr class='t1'>");
-                  tot.append("<td  class='td1' colspan='2' align='right'> Total: </td> ");
-                  tot.append("</tr>");
-                  $(".tbl1").append(tot);
 
 
 

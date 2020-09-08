@@ -61,7 +61,7 @@ img {
     <div class="top-nav-bar">
     <div class="menu-bar">
     <ul>
-    <li><a href="order.php" id='cart'><i class="fa fa-shopping-basket"></i>cart</a></li>
+    <li><a href="New folder/order.php" id='cart'><i class="fa fa-shopping-basket"></i>cart</a></li>
     <li class='li'><a href='#'>Total Price : <span class='span'></span></a></li>
     </ul>    
     

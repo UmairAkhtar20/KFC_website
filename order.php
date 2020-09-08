@@ -19,7 +19,10 @@
         var newp=0;
         var oldp=0;
         $(document).ready(function(){
-            showOrderproducts();          
+            showOrderproducts();
+           
+           
+            
 
         });
 
